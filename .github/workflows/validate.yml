@@ -1,0 +1,12 @@
+name: Validate HTTP course
+on: [push, pull_request]
+jobs:
+  content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/test-content.cjs
+      - run: node --check lms-runtime.js && node --check scripts/practice-server.cjs

@@ -44,7 +44,7 @@ def clean(body,url,source_path):
     # Protect code: even HTML examples and comments must remain verbatim inert text.
     code=[]
     def protect(m):
-        code.append(re.sub(r'^```([^\s`]+)[^\n]*',r'```\1',m[0]));return f'HTTP_CODE_TOKEN_{len(code)-1}'
+        code.append(re.sub(r'^```([^\s`]+)[^\n]*',r'```\1',m[0]));return f'HTTP_CODE_TOKEN_{len(code)-1}_END'
     body=re.sub(r'^```[^\n]*\n.*?^```\s*$',protect,body,flags=re.S|re.M)
     body=re.sub(r'<!--.*?-->','',body,flags=re.S)
     body=re.sub(r'\{\{\s*([\w-]+)(?:\((.*?)\))?\s*\}\}',macro,body)
@@ -57,7 +57,7 @@ def clean(body,url,source_path):
     body=body.replace('](/en-US/docs/',']('+MDN)
     body=re.sub(r'\]\(#([^)]*)\)',lambda m:']('+url+'#'+m[1]+')',body)
     body=re.sub(r'!\[([^\]]*)\]\(([^)]*)\)',lambda m:'[Diagram: '+m[1]+']('+ (m[2] if m[2].startswith('http') else f'https://raw.githubusercontent.com/mdn/content/{COMMIT}/'+str(Path(source_path).parent/m[2])) +')',body)
-    for i,c in enumerate(code):body=body.replace(f'HTTP_CODE_TOKEN_{i}',c)
+    for i,c in enumerate(code):body=body.replace(f'HTTP_CODE_TOKEN_{i}_END',c)
     return body.strip()
 
 def parts(body,limit=12500):

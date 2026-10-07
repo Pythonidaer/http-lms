@@ -1,5 +1,7 @@
 # HTTP Learning Studio
 
+Live course: https://pythonidaer.github.io/http-lms/
+
 A standalone HTTP LMS using the existing Learning Studio interface. Keep API and JSON as separate courses: this course teaches HTTP contracts and only the body-format/JavaScript knowledge needed to use them.
 
 - 32 guided slide lessons (194 slides), with goals, exercises and worked checks.
